@@ -9,6 +9,9 @@
 
 ### 源码和程序图片
 - 001_ResEdit_Test
+
+- 002_WinAPI32
+
 ![](https://262235.xyz/img/cbstudy/001_ResEdit_Test.png)
 
 ----
