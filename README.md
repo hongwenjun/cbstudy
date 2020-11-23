@@ -10,9 +10,16 @@
 ### 源码和程序图片
 - 001_ResEdit_Test
 
+![](https://raw.githubusercontent.com/hongwenjun/cbstudy/main/img/001_ResEdit_Test.png)
+
 - 002_WinAPI32
 
-![](https://262235.xyz/img/cbstudy/001_ResEdit_Test.png)
+---
+
+- 003_GuiLauncher
+
+![](https://raw.githubusercontent.com/hongwenjun/cbstudy/main/img/Start_VM_Headless.png)
 
 ----
 **github项目**   https://github.com/hongwenjun/cbstudy
+
