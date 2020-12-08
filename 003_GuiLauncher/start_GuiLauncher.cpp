@@ -14,6 +14,13 @@ void start_debian_VM_Headless(void)
     WinExec(cmdline, SW_HIDE);
 }
 
+void start_Alpine_VM_Headless(void)
+{
+    chdir_VirtualBox();
+    char cmdline[] = "VBoxManage.exe  startvm  Alpine --type headless ";
+    WinExec(cmdline, SW_HIDE);
+}
+
 void start_Arch_VM_Headless(void)
 {
     chdir_VirtualBox();
@@ -29,6 +36,9 @@ void stop_VM_Headless(void)
 
     char cmdline2[] = "VBoxManage.exe  controlvm  ArchLinux acpipowerbutton ";
     WinExec(cmdline2, SW_HIDE);
+
+    char cmdline3[] = "VBoxManage.exe  controlvm  Alpine acpipowerbutton ";
+    WinExec(cmdline3, SW_HIDE);
 }
 
 //  注意 C:\\CodeBlocks\\codeblocks.exe  路径中 \ 要用转移字符 \\ 双反斜杠
@@ -58,7 +68,7 @@ void start_GuiLauncher(int app_id)
 
     switch (app_id) {
 
-    case 1: start_CodeBlocks();
+    case 1: start_Alpine_VM_Headless();
         break;
     case 2: start_git_bash();
         break;
