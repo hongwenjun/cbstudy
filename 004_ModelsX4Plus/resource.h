@@ -11,6 +11,7 @@
 #define IDI_ICON1                               106
 #define IDB_BITMAP6                             107
 #define EDIT_LOG                                40000
+#define DEBUG_FLG                               40001
 #define GET_FILE                                40002
 #define RX_01                                   40003
 #define RX_02                                   40004

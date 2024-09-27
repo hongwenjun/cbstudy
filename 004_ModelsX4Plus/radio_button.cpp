@@ -1,5 +1,6 @@
 #include "radio_button.h"
 #include "start_GuiLauncher.h"
+#include <mmsystem.h>
 
 const char *hero[] = {
     "Null",
@@ -21,22 +22,45 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
 
   switch (rx) {
   case 1:
-    strcat(output, "_2X.png");
+    strcat(output, "_2X.png -s 2");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
     hide_run_cmd(cmdline);
+    PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
 
   case 2:
+    SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "。。。画质增强运行中。。。");
     strcat(output, "_4x.png  -m models -n realesrgan-x4plus");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
     hide_run_cmd(cmdline);
+    SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "^_^ 画质增强完成 ^_^");
+    PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
 
   case 3:
+    SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "。。。画质增强运行中。。。");
     strcat(output, "_DF2K.png  -s 4 -m models-DF2K_JPEG -n x4");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
     hide_run_cmd(cmdline);
+    SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "^_^ 画质增强完成 ^_^");
+    PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
+
+  case 4: {
+    strcpy(hzzq, "C:\\app\\hzzq\\LiApp.exe");
+    sprintf(cmdline, "%s  %s", hzzq, buf);
+    debug_flg = true;
+    hide_run_cmd(cmdline);
+
+  } break;
+
+  case 5: {
+    strcpy(hzzq, "ffmpeg.exe");
+    strcat(output, "_new.webp");
+    sprintf(cmdline, "%s  -i %s %s", hzzq, buf, output);
+    debug_flg = true;
+    hide_run_cmd(cmdline);
+  } break;
   }
 
   return rx;

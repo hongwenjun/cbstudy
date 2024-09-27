@@ -1,18 +1,17 @@
 #include <stdio.h>
 #include <wchar.h>
 #include <windows.h>
-#include <commctrl.h>
 
+#include <commctrl.h>
 #include "radio_button.h"
 #include "resource.h"
 #include "start_GuiLauncher.h"
-
-
 
 HINSTANCE hInst;
 HICON g_hIcon;
 wchar_t wbuf[BUFSIZ];
 char buf[BUFSIZ] = {0};
+bool debug_flg = false; // 调试->高级模式
 
 int GetImageFileName(HWND hWnd, char *szFile);
 BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -45,17 +44,19 @@ BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
       rx = process_button(hwndDlg, wParam);
       break;
 
+    case GET_FILE: {
+      GetImageFileName(hwndDlg, buf);
+      charToWCHAR(wbuf, buf);
+    } break;
 
-    case GET_FILE:{
-        GetImageFileName(hwndDlg, buf);
-        charToWCHAR(wbuf, buf);
+    case DEBUG_FLG: {
+      if (BST_CHECKED == IsDlgButtonChecked(hwndDlg, DEBUG_FLG))
+        debug_flg = true;
+      else
+        debug_flg = false;
+    } break;
+
     }
-    break;
-
-    }
-
-
-
   }
     return TRUE;
   }
@@ -69,7 +70,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   // 获取命令行参数
   int argc;
   LPWSTR *argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-    wcscpy(wbuf, argv[0]);
+  wcscpy(wbuf, argv[0]);
   if (2 == argc) {
     wcscpy(wbuf, argv[1]);
     WCHARTochar(buf, wbuf);
@@ -90,28 +91,28 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 // 选择一个图片文件
 int GetImageFileName(HWND hWnd, char *szFile) {
-    OPENFILENAME ofn; // common dialog box structure
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = hWnd;
-    ofn.lpstrFile = szFile;
-    ofn.lpstrFile[0] = '\0';
-    ofn.nMaxFile = 260; // 本来sizeof(szFile);
-    ofn.lpstrFilter = "图片文件(*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.webp)\0"
-                      "*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.webp\0"
-                      "所有文件(*.*)\0"
-                      "*.*\0\0";
-    ofn.nFilterIndex = 1;
-    ofn.lpstrFileTitle = NULL;
-    ofn.nMaxFileTitle = 0;
-    ofn.lpstrInitialDir = NULL;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+  OPENFILENAME ofn; // common dialog box structure
+  ZeroMemory(&ofn, sizeof(ofn));
+  ofn.lStructSize = sizeof(ofn);
+  ofn.hwndOwner = hWnd;
+  ofn.lpstrFile = szFile;
+  ofn.lpstrFile[0] = '\0';
+  ofn.nMaxFile = 260; // 本来sizeof(szFile);
+  ofn.lpstrFilter = "图片文件(*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.webp)\0"
+                    "*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.webp\0"
+                    "所有文件(*.*)\0"
+                    "*.*\0\0";
+  ofn.nFilterIndex = 1;
+  ofn.lpstrFileTitle = NULL;
+  ofn.nMaxFileTitle = 0;
+  ofn.lpstrInitialDir = NULL;
+  ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
-    // Display the Open dialog box.
-    if (GetOpenFileName(&ofn)) {
-        return lstrlen(szFile);
-    } else {
-        // 处理错误或用户取消的情况
-        return 0; // 用户取消或发生错误
-    }
+  // Display the Open dialog box.
+  if (GetOpenFileName(&ofn)) {
+    return lstrlen(szFile);
+  } else {
+    // 处理错误或用户取消的情况
+    return 0; // 用户取消或发生错误
+  }
 }
