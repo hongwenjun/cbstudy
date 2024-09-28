@@ -1,7 +1,6 @@
 #ifndef START_GUILAUNCHER_H_INCLUDED
 #define START_GUILAUNCHER_H_INCLUDED
 
-#include <unistd.h>
 #include <windows.h>
 
 extern bool debug_flg;

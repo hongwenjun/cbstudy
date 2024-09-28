@@ -1,4 +1,4 @@
-#include "start_GuiLauncher.h"
+﻿#include "start_GuiLauncher.h"
 #include <stdio.h>
 
 int hide_run_cmd(char *cmdline) {

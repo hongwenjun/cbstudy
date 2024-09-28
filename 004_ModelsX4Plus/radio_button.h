@@ -4,7 +4,7 @@
 #include <windows.h>
 #include "resource.h"
 
-//  ç”¨æˆ·æ”¶éŸ³æœºæŒ‰é’® å‡½æ•° process_button
+//  ÓÃ»§ÊÕÒô»ú°´Å¥ º¯Êı process_button
 int process_button(HWND hwndDlg, WPARAM wParam);
 
 static int rx = -1;

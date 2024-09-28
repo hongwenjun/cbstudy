@@ -20,6 +20,14 @@
 
 ![](https://raw.githubusercontent.com/hongwenjun/cbstudy/main/img/Start_VM_Headless.png)
 
+
+---
+
+- 004_ModelsX4Plus
+
+![](https://raw.githubusercontent.com/hongwenjun/cbstudy/main/img/X4PlusLauncher.webp)
+
+
 ----
 **github项目**   https://github.com/hongwenjun/cbstudy
 

@@ -1,11 +1,12 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <wchar.h>
 #include <windows.h>
 
-#include <commctrl.h>
 #include "radio_button.h"
 #include "resource.h"
 #include "start_GuiLauncher.h"
+#include <commctrl.h>
+
 
 HINSTANCE hInst;
 HICON g_hIcon;
@@ -55,7 +56,6 @@ BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
       else
         debug_flg = false;
     } break;
-
     }
   }
     return TRUE;
