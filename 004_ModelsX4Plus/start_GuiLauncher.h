@@ -10,6 +10,7 @@ extern bool debug_flg;
 void start_GuiLauncher(int app_id);
 void stop_VM_Headless(void);
 
+void ExecuteCommand(HWND hwnd, const char *command);
 int hide_run_cmd(char *cmdline);
 wchar_t *charToWCHAR(wchar_t *wch, const char *czs);
 char *WCHARTochar(char *czs, const wchar_t *wch);

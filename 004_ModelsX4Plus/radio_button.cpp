@@ -16,7 +16,7 @@ const char *hero[] = {
 //  用户收音机按钮 函数 process_button
 int process_button(HWND hwndDlg, WPARAM wParam) {
   rx = LOWORD(wParam) - RX_01 + 1;
-  SetWindowText(::GetDlgItem(hwndDlg, EDIT_LOG), hero[rx]);
+  SetWindowText(::GetDlgItem(hwndDlg, EDIT_LOG), "");
 
   char hzzq[] = "C:\\app\\hzzq\\realesrgan-ncnn-vulkan.exe";
   char cmdline[MAX_PATH] = {0};
@@ -27,7 +27,8 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
   case 1:
     strcat(output, "_2X.png -s 2");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
-    hide_run_cmd(cmdline);
+    // hide_run_cmd(cmdline);
+    ExecuteCommand(hwndDlg, cmdline);
     PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
 
@@ -35,7 +36,7 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
     SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "。。。画质增强运行中。。。");
     strcat(output, "_4x.png  -m models -n realesrgan-x4plus");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
-    hide_run_cmd(cmdline);
+    ExecuteCommand(hwndDlg, cmdline);
     SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "^_^ 画质增强完成 ^_^");
     PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
@@ -44,7 +45,7 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
     SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "。。。画质增强运行中。。。");
     strcat(output, "_DF2K.png  -s 4 -m models-DF2K_JPEG -n x4");
     sprintf(cmdline, "%s -i %s -o %s", hzzq, buf, output);
-    hide_run_cmd(cmdline);
+    ExecuteCommand(hwndDlg, cmdline);
     SetWindowText(::GetDlgItem(hwndDlg, GET_FILE), "^_^ 画质增强完成 ^_^");
     PlaySound(TEXT("SystemWelcome"), NULL, SND_ALIAS);
     break;
@@ -53,7 +54,7 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
     strcpy(hzzq, "C:\\app\\hzzq\\LiApp.exe");
     sprintf(cmdline, "%s  %s", hzzq, buf);
     debug_flg = true;
-    hide_run_cmd(cmdline);
+    ExecuteCommand(hwndDlg, cmdline);
   } break;
 
   case 5: {
@@ -63,11 +64,12 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
     } else {
       strcat(output, "_new.webp");
     }
-    sprintf(cmdline, "%s  -i %s %s", hzzq, buf, output);
-    debug_flg = true;
-    hide_run_cmd(cmdline);
+    sprintf(cmdline, "%s  -i %s %s -y", hzzq, buf, output);
+    ExecuteCommand(hwndDlg, cmdline);
   } break;
   }
+
+  SendMessage(::GetDlgItem(hwndDlg, EDIT_LOG),  EM_REPLACESEL, TRUE, (LPARAM)hero[rx]);
 
   return rx;
 }

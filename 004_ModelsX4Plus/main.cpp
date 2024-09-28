@@ -48,6 +48,7 @@ BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     case GET_FILE: {
       GetImageFileName(hwndDlg, buf);
       charToWCHAR(wbuf, buf);
+      SetWindowTextW(::GetDlgItem(hwndDlg, EDIT_LOG), wbuf);
     } break;
 
     case DEBUG_FLG: {
