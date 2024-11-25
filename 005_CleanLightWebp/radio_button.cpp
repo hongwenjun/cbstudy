@@ -2,7 +2,8 @@
 #include "start_GuiLauncher.h"
 #include <mmsystem.h>
 
-
+int  opencv_CleanLight(const char *imgf1, const char *imgf2);
+int opencv_img2Webp(const char *imgfile, const char *webpfile);
 bool is_webp_format(const char *filename);
 
 const char *hero[] = {
@@ -51,21 +52,19 @@ int process_button(HWND hwndDlg, WPARAM wParam) {
     break;
 
   case 4: {
-    strcpy(hzzq, "C:\\app\\hzzq\\LiApp.exe");
-    sprintf(cmdline, "%s  %s", hzzq, buf);
-    debug_flg = true;
-    ExecuteCommand(hwndDlg, cmdline);
+    // 文稿一键美白CleanLight
+    opencv_CleanLight(buf, output);
   } break;
 
   case 5: {
-    strcpy(hzzq, "ffmpeg.exe");
+  
     if (is_webp_format(buf)) {
       strcat(output, "_to.png");
     } else {
       strcat(output, "_new.webp");
     }
-    sprintf(cmdline, "%s  -i %s %s -y", hzzq, buf, output);
-    ExecuteCommand(hwndDlg, cmdline);
+    opencv_img2Webp(buf, output);
+
   } break;
   }
 
