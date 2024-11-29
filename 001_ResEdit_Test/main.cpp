@@ -1,40 +1,33 @@
-#include <windows.h>
+#include "resource.h"
 #include <commctrl.h>
 #include <stdio.h>
-#include "resource.h"
+#include <windows.h>
+
 
 HINSTANCE hInst;
 
-BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    switch(uMsg)
-    {
-    case WM_INITDIALOG:
-    {
+BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    switch (uMsg) {
+    case WM_INITDIALOG: {
+        
     }
-    return TRUE;
+        return TRUE;
 
-    case WM_CLOSE:
-    {
+    case WM_CLOSE: {
         EndDialog(hwndDlg, 0);
     }
-    return TRUE;
+        return TRUE;
 
-    case WM_COMMAND:
-    {
-        switch(LOWORD(wParam))
-        {
-        }
+    case WM_COMMAND: {
+        switch (LOWORD(wParam)) {}
     }
-    return TRUE;
+        return TRUE;
     }
     return FALSE;
 }
 
-
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-{
-    hInst=hInstance;
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+    hInst = hInstance;
     InitCommonControls();
     return DialogBox(hInst, MAKEINTRESOURCE(DLG_MAIN), NULL, (DLGPROC)DlgMain);
 }

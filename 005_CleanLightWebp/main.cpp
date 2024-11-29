@@ -14,8 +14,7 @@ char buf[BUFSIZ] = {0};
 bool debug_flg = false; // 调试->高级模式
 
 int GetImageFileName(HWND hWnd, char *szFile);
-BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
+BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
     switch (uMsg) {
     case WM_INITDIALOG: {
@@ -65,8 +64,7 @@ BOOL CALLBACK DlgMain(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return FALSE;
 }
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-{
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 
     // 获取命令行参数
     int argc;
@@ -91,8 +89,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 }
 
 // 选择一个图片文件
-int GetImageFileName(HWND hWnd, char *szFile)
-{
+int GetImageFileName(HWND hWnd, char *szFile) {
     OPENFILENAME ofn; // common dialog box structure
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
@@ -113,8 +110,7 @@ int GetImageFileName(HWND hWnd, char *szFile)
     // Display the Open dialog box.
     if (GetOpenFileName(&ofn)) {
         return lstrlen(szFile);
-    }
-    else {
+    } else {
         // 处理错误或用户取消的情况
         return 0; // 用户取消或发生错误
     }

@@ -2,8 +2,7 @@
 #include "resource.h"
 #include <stdio.h>
 
-int hide_run_cmd(char *cmdline)
-{
+int hide_run_cmd(char *cmdline) {
     SetConsoleTitle(cmdline);
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -36,19 +35,16 @@ int hide_run_cmd(char *cmdline)
 }
 
 // 路径转宽字节
-wchar_t *charToWCHAR(wchar_t *wch, const char *czs)
-{
+wchar_t *charToWCHAR(wchar_t *wch, const char *czs) {
     MultiByteToWideChar(CP_ACP, 0, czs, -1, wch, MAX_PATH); // czs 转换到宽字节wch
     return wch;
 }
-char *WCHARTochar(char *czs, const wchar_t *wch)
-{
+char *WCHARTochar(char *czs, const wchar_t *wch) {
     WideCharToMultiByte(CP_ACP, 0, wch, -1, czs, MAX_PATH, NULL, NULL);
     return czs;
 }
 
-void ExecuteCommand(HWND hwnd, const char *command)
-{
+void ExecuteCommand(HWND hwnd, const char *command) {
     if (debug_flg) {
         hide_run_cmd((LPSTR)command);
         return;
@@ -93,8 +89,7 @@ void ExecuteCommand(HWND hwnd, const char *command)
         WaitForSingleObject(pi.hProcess, INFINITE);
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
-    }
-    else {
+    } else {
         MessageBox(hwnd, "CreateProcess failed.", "Error", MB_OK | MB_ICONERROR);
     }
 

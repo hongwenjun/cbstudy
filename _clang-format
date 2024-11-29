@@ -1,5 +1,5 @@
 BasedOnStyle: LLVM
 IndentWidth: 4
 UseTab: Never
-BreakBeforeBraces: Stroustrup
+BreakBeforeBraces: Attach
 ColumnLimit: 120

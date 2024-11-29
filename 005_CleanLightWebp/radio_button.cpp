@@ -15,8 +15,7 @@ const char *hero[] = {"Null",
                       "把选择的图片转Webp格式，如果已经是Webp，则图片转换PNG"};
 
 //  用户收音机按钮 函数 process_button
-int process_button(HWND hwndDlg, WPARAM wParam)
-{
+int process_button(HWND hwndDlg, WPARAM wParam) {
     rx = LOWORD(wParam) - RX_01 + 1;
     SetWindowText(::GetDlgItem(hwndDlg, EDIT_LOG), "");
 
@@ -62,8 +61,7 @@ int process_button(HWND hwndDlg, WPARAM wParam)
         // 图片转Webp格式，或者转png格式
         if (is_webp_format(buf)) {
             change_ext(output, ".png");
-        }
-        else {
+        } else {
             change_ext(output, ".webp");
         }
         opencv_img2Webp(buf, output);
@@ -77,8 +75,7 @@ int process_button(HWND hwndDlg, WPARAM wParam)
 }
 
 // 检测扩展名 ".webp"
-bool is_webp_format(const char *filename)
-{
+bool is_webp_format(const char *filename) {
     size_t len = strlen(filename);
     if (len < 5)
         return false;
@@ -86,13 +83,11 @@ bool is_webp_format(const char *filename)
 }
 
 // 修改扩展名 ".webp" 或者 ".png"
-void change_ext(char *f, const char *e)
-{
+void change_ext(char *f, const char *e) {
     char *d = strrchr(f, '.');
     if (d != NULL) {
         strcpy(d, e);
-    }
-    else {
+    } else {
         strcat(f, e);
     }
 }

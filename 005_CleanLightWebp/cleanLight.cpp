@@ -12,8 +12,7 @@ void removeShadow(const Mat &src, Mat &dst);
 void resizeToFitScreen(const Mat &src, Mat &resized, int screenWidth, int screenHeight);
 void applyLevels(Mat &img, int black, int white);
 void readOrWriteConfig(const char *filename, double *alpha, int *beta, int *black, int *white);
-int opencv_CleanLight(const char *imgf1, const char *imgf2)
-{
+int opencv_CleanLight(const char *imgf1, const char *imgf2) {
 
     // 读取输入图像
     Mat src = imread(imgf1);
@@ -65,8 +64,7 @@ int opencv_CleanLight(const char *imgf1, const char *imgf2)
     return 0;
 }
 
-void readOrWriteConfig(const char *filename, double *alpha, int *beta, int *black, int *white)
-{
+void readOrWriteConfig(const char *filename, double *alpha, int *beta, int *black, int *white) {
     // 尝试打开文件
     FILE *file = fopen(filename, "r");
     if (file) {
@@ -75,8 +73,7 @@ void readOrWriteConfig(const char *filename, double *alpha, int *beta, int *blac
         fclose(file);
         printf("读取成功: alpha = %.2f, beta = %d\n色阶黑白阈值: black = %d, white = %d\n", *alpha, *beta, *black,
                *white);
-    }
-    else {
+    } else {
         // 如果文件不存在，创建文件并写入变量
         *alpha = 1.2;
         *beta = 8;
@@ -88,16 +85,14 @@ void readOrWriteConfig(const char *filename, double *alpha, int *beta, int *blac
             fclose(file);
             printf("文件未找到，已创建并写入: alpha = %.2f, beta = %d\n色阶黑白阈值: black = %d, white = %d\n", *alpha,
                    *beta, *black, *white);
-        }
-        else {
+        } else {
             perror("无法创建文件");
             exit(EXIT_FAILURE);
         }
     }
 }
 
-void removeShadow(const Mat &src, Mat &dst)
-{
+void removeShadow(const Mat &src, Mat &dst) {
     // 1. 将图像转换为 HSV 色彩空间
     Mat hsv;
     cvtColor(src, hsv, COLOR_BGR2HSV);
@@ -129,8 +124,7 @@ void removeShadow(const Mat &src, Mat &dst)
     cvtColor(hsv, dst, COLOR_HSV2BGR);
 }
 
-void resizeToFitScreen(const Mat &src, Mat &resized, int screenWidth, int screenHeight)
-{
+void resizeToFitScreen(const Mat &src, Mat &resized, int screenWidth, int screenHeight) {
     Size srcSize = src.size();
     int newWidth, newHeight;
 
@@ -139,8 +133,7 @@ void resizeToFitScreen(const Mat &src, Mat &resized, int screenWidth, int screen
         // 按屏幕宽等比缩放
         newWidth = screenWidth;
         newHeight = srcSize.height * screenWidth / srcSize.width;
-    }
-    else {
+    } else {
         // 按屏幕高等比缩放
         newHeight = screenHeight;
         newWidth = srcSize.width * screenHeight / srcSize.height;
@@ -149,15 +142,13 @@ void resizeToFitScreen(const Mat &src, Mat &resized, int screenWidth, int screen
     resize(src, resized, Size(newWidth, newHeight));
 }
 
-void applyLevels(Mat &img, int black, int white)
-{
+void applyLevels(Mat &img, int black, int white) {
     // 计算缩放因子
     double scale = 255.0 / (white - black);
     img.convertTo(img, CV_8U, scale, -black * scale);
 }
 
-int opencv_img2Webp(const char *imgfile, const char *webpfile)
-{
+int opencv_img2Webp(const char *imgfile, const char *webpfile) {
     // 读取图像
     cv::Mat image = cv::imread(imgfile);
     if (image.empty()) {
